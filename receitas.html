@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container bg-dark" onload="preencheCatalogo()">
+    <div class="container-fluid">
+        <h1 class="text-center text-warning">Catálogo de Receitas</h1>
+        <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+    </div>
+
+    <script>
+        const receitas = [
+            {
+                titulo: "Bolo de Cenoura",
+                imagem: "assets/bolo de cenoura.png",
+                preparo: "Misture todos os ingredientes e asse por 40 minutos.",
+                ingredientes: ["3 cenouras", "2 xícaras de açúcar", "3 ovos", "1 xícara de óleo", "2 xícaras de farinha de trigo", "1 colher de fermento"]
+            },
+            {
+                titulo: "Feijoada",
+                imagem: "assets/feijoada.png",
+                preparo: "Cozinhe todos os ingredientes juntos por 2 horas.",
+                ingredientes: ["500g de feijão preto", "200g de carne seca", "200g de linguiça", "100g de bacon", "1 cebola", "3 dentes de alho"]
+            },
+            {
+                titulo: "Strogonoff de Frango",
+                imagem: "assets/strogonoff.png",
+                preparo: "Cozinhe o frango e os legumes em uma panela. Adicione o molho de tomate e o creme de leite. Sirva com arroz.",
+                "ingredientes": [
+                "500g de peito de frango",
+                "1 cebola",
+                "2 dentes de alho",
+                "200g de champignons",
+                "1 xícara de molho de tomate",
+                "1 xícara de creme de leite",
+                "Sal e pimenta a gosto"]
+            },
+            {
+                titulo: "Torta de Chocolate",
+                imagem: "assets/torta de chocolate.png",
+                preparo: "Misture os ingredientes secos em uma tigela. Adicione os ovos e o chocolate derretido. Despeje em uma forma e asse por 30 minutos.",
+                "ingredientes": [
+                "2 xícaras de farinha de trigo",
+                "1 xícara de açúcar",
+                "1/2 xícara de cacau em pó",
+                "1/2 xícara de manteiga derretida",
+                "4 ovos",
+                "200g de chocolate meio amargo"
+            ]
+            }
+            // Adicione mais receitas conforme necessário
+        ];
+
+        function getListaIngredientes(receita) {
+            let lista = "<ul>";
+            lista += receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((acc, curr) => acc + curr, "");
+            lista += "</ul>";
+            return lista;
+        }
+
+        function getCard(receita) {
+            return `
+                <div class="card" style="width: 250px; margin: 10px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            ${receita.preparo}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            pnlCatalogo.innerHTML = receitas.map(receita => getCard(receita)).reduce((acc, curr) => acc + curr, "");
+        }
+    </script>
+</body>
+</html>
